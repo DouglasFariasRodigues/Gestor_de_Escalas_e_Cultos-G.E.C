@@ -1,0 +1,40 @@
+# Arquivos de Ambiente
+# Nunca envie arquivos com senhas e chaves secretas para o repositório!
+.env
+.env.*
+
+# Python / Django
+__pycache__/
+*.pyc
+venv/
+*.sqlite3
+db.sqlite3
+
+# Arquivos de IDEs e editores
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Node.js / Vite
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Arquivos de sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos gerados pelo projeto
+PLANO_AUTOMACAO_ESCALA_IGREJA.pdf
