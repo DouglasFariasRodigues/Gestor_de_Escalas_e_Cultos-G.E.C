@@ -3,7 +3,7 @@
 ## Progresso
 - [x] Documento .md criado
 - [x] Preparar ambiente
-- [ ] Modelar o banco
+- [x] Modelar o banco
 - [ ] Construir APIs
 - [ ] Construir o Frontend
 - [ ] Implementar Copiar Escala do Mês
