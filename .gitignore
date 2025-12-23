@@ -3,12 +3,19 @@ Anotações_Estudo.txt
 # Nunca envie arquivos com senhas e chaves secretas para o repositório!
 .env
 .env.*
+# Python e Django
+__pycache__/
+*.py[cod]
 
 # Python / Django
 __pycache__/
 *.pyc
+# Ambientes virtuais
 venv/
 *.sqlite3
+env/
+
+# Banco de dados local (não deve ir para o git)
 db.sqlite3
 
 # Arquivos de IDEs e editores
