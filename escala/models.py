@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 from django.core.validators import MinValueValidator, MaxValueValidator
 
@@ -41,7 +42,7 @@ class Local(models.Model):
         verbose_name_plural = "Locais"
         ordering = ['nome']
  
-    def __str__(self):
+        def __str__(self):
             return self.nome
         
 
@@ -63,12 +64,28 @@ class NatCulto(models.Model):
  
     def __str__(self):
         return self.nome
+    
+class Indisponibilidade(models.Model):
+    """Registra períodos em que o obreiro não pode ser escalado."""
+    obreiro = models.ForeignKey(Obreiro, on_delete=models.CASCADE, related_name="indisponibilidades")
+    data_inicio = models.DateTimeField(help_text = 'Data de início da indisponibilidade.')
+    data_fim = models.DateTimeField(help_text= 'Data de Fim de indisponibilidade.')
+    motivo = models.CharField(max_length=255,help_text='Motivo da indisponibilidade.')
+
+    class Meta:
+        verbose_name = "Indisponibilidade"
+        verbose_name_plural = "Indisponibilidades"
+        ordering = ['data_inicio']
+
+    def __str__(self):
+        return f"Indisponibilidade do obreiro {self.obreiro.nome} na data {self.data_inicio.strftime('%d/%m/%Y')} até {self.data_fim.strftime('%d/%m/%Y')}"
+    
 
 class Culto(models.Model):
     """Representa um evento de culto agendado, com data, hora e local."""
     local = models.ForeignKey(Local, on_delete=models.PROTECT, related_name="cultos")
     nat_culto = models.ForeignKey(NatCulto, on_delete=models.PROTECT, related_name="cultos")
-    data_hora = models.DateTimeField(help_text="Data e hora de início do culto.")
+    data_hora = models.DateTimeField(default=timezone.now, help_text="Data e hora de início do culto.")
  
     class Meta:
         verbose_name = "Culto"
@@ -87,9 +104,15 @@ class Escala(models.Model):
         help_text="Mês da escala (1 a 12)."
     )
     ano = models.IntegerField(help_text="Ano da escala (ex: 2024).")
+
+    class Status(models.TextChoices):
+        RASCUNHO = 'Rascunho', 'Rascunho'
+        PUBLICADA = 'Publicada', 'Publicada'
+
     status = models.CharField(
         max_length=20,
-        default='Rascunho',
+        choices=Status.choices,
+        default=Status.RASCUNHO,
         help_text="Estado atual da escala (ex: Rascunho, Publicada)."
     )
 
