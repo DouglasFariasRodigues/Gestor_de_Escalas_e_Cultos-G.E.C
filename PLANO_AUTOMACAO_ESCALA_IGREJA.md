@@ -4,7 +4,7 @@
 - [x] Documento .md criado
 - [x] Preparar ambiente
 - [x] Modelar o banco
-- [ ] Construir APIs
+- [x] Construir APIs
 - [ ] Construir o Frontend
 - [ ] Implementar Copiar Escala do Mês
 - [ ] Garantias de seleção segura
