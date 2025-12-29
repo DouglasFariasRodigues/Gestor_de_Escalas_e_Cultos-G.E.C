@@ -15,7 +15,7 @@
 - Backend: Django + Django REST Framework
 - Banco: PostgreSQL
 - Frontend: React
-- UI: HeroUI
+- UI: Tailwind CSS + daisyUI
 - Marcação/Estilos: HTML e CSS
 
 ## Objetivo
@@ -46,6 +46,7 @@
 ## Regras de Negócio
 - Não permitir cadastro de itens de escala com obreiros/locais/Nat Culto inativos.
 - Impedir conflito: um obreiro não pode estar em dois cultos com horários sobrepostos.
+- **Contador de Escala Mensal:** O sistema deve calcular e exibir quantas vezes um obreiro foi escalado dentro de um determinado mês.
 - Copiar escala deve respeitar:
   - Apenas obreiros/locais/Nat Culto existentes e ativos; se um obreiro não existir/estiver inativo, o item fica pendente para revisão.
   - Datas de destino calculadas por “mesma semana e dia da semana” ou “mesmo dia do mês”.
@@ -73,7 +74,7 @@
   - Backend: Django (5.x) com Django REST Framework (DRF).
   - Banco: PostgreSQL.
   - Frontend: React com Vite.
-  - UI: HeroUI para componentes e temas.
+  - UI: Tailwind CSS + daisyUI para componentes e temas.
   - Integrações: CORS configurado entre frontend e backend; autenticação JWT opcional para perfis de acesso.
  - Alternativa mínima: planilha + Apps Script para protótipo rápido; migração posterior para web.
 
@@ -88,7 +89,7 @@
   - Registrar app `escala` e DRF.
 - Frontend:
   - `npm create vite@latest frontend -- --template react`.
-  - Instalar HeroUI e configurar tema básico.
+  - Instalar Tailwind CSS + daisyUI e configurar tema básico.
 
 2) Modelar o banco
 - Tabelas e chaves:
@@ -132,18 +133,55 @@
   - Serializers com validações de integridade.
 
 4) Construir o Frontend
-- Estado e rotas:
-  - Contexto para mes/ano corrente.
-  - Páginas: Obreiros, Locais, Nat Culto, Cultos, Escala.
-- Componentes:
-  - Formulários com select alimentados por listas da API (sem texto livre).
-  - Escala mensal: tabela por culto com select de obreiros.
-  - Botão Copiar mês: abre modal com destino e opções.
-- UX:
-  - Indicadores de pendência (ex.: obreiro faltante após cópia).
-  - Filtros por local e Nat Culto no calendário.
- - UI:
-   - Utilizar HeroUI para formulários, tabelas, modal e tema.
+Esta etapa será dividida em sub-tarefas para facilitar o acompanhamento.
+
+**Fase 1: Configuração e Estrutura Base**
+- [x] Criar projeto com Vite + React + TypeScript.
+- [x] Instalar e configurar Tailwind CSS para estilização.
+- [x] Opcional: Instalar daisyUI para componentes de UI pré-prontos.
+- [x] Criar estrutura de pastas do projeto (`pages`, `components`, `services`, `hooks`, `contexts`).
+- [x] Instalar `react-router-dom` para gerenciar as rotas da aplicação.
+- [ ] Configurar o `BrowserRouter` em `main.tsx` para habilitar o roteamento.
+- [ ] Configurar as rotas iniciais em `App.tsx` (ex: redirecionar para `/login`).
+
+**Fase 2: Autenticação e Layout Principal**
+- [ ] Criar a página de Login (`pages/LoginPage.tsx`).
+- [ ] Desenvolver o formulário de login (UI).
+- [ ] Criar um componente de Layout Principal (`components/layout/MainLayout.tsx`) com Header e Sidebar.
+- [ ] Criar a página de Dashboard (`pages/DashboardPage.tsx`) como página principal pós-login.
+- [ ] Configurar rotas protegidas que só podem ser acessadas após o login.
+- [ ] Criar um Contexto de Autenticação (`contexts/AuthContext.tsx`) para gerenciar o estado do usuário.
+- [ ] Criar o serviço de API (`services/api.ts`) e a função de login para conectar ao backend.
+- [ ] Implementar a lógica de login e logout.
+
+**Fase 3: Cadastros Base (CRUDs)**
+- [ ] **Obreiros:**
+    - [ ] Criar a página de Obreiros (`pages/WorkersPage.tsx`).
+    - [ ] Criar o serviço de API para Obreiros (listar, criar, editar).
+    - [ ] Desenvolver a tabela para listar os obreiros.
+    - [ ] Desenvolver o modal/formulário para criar/editar um obreiro.
+- [ ] **Locais:**
+    - [ ] Criar a página de Locais (`pages/LocationsPage.tsx`).
+    - [ ] Implementar o CRUD completo para Locais (similar a Obreiros).
+- [ ] **Tipos de Culto (Nat Culto):**
+    - [ ] Criar a página de Tipos de Culto (`pages/ServiceTypesPage.tsx`).
+    - [ ] Implementar o CRUD completo para Tipos de Culto.
+
+**Fase 4: Funcionalidade Principal (Escalas)**
+- [ ] Criar a página de Escalas (`pages/SchedulesPage.tsx`).
+- [ ] Desenvolver o seletor de Mês/Ano.
+- [ ] Criar a visualização da escala em formato de tabela/calendário.
+- [ ] Implementar a funcionalidade para atribuir obreiros a um culto.
+- [ ] Criar o serviço de API para gerenciar a escala.
+- [ ] Implementar a funcionalidade "Copiar Escala do Mês" em um modal.
+- [ ] Desenvolver a tela de revisão da cópia para resolver pendências.
+
+**Fase 5: Finalização e Polimento**
+- [ ] Criar componentes genéricos e reutilizáveis (ex: `Button`, `Input`, `Card`, `Modal`).
+- [ ] Adicionar indicadores de carregamento (`loading spinners`) durante as chamadas de API.
+- [ ] Adicionar feedback para o usuário (toasts/notificações) para sucesso e erro.
+- [ ] Revisar a responsividade para diferentes tamanhos de tela.
+- [ ] Implementar a funcionalidade de Exportação/Impressão (se aplicável).
 
 5) Implementar Copiar Escala do Mês
 - Entrada: mesOrigem, anoOrigem, mesDestino, anoDestino.
