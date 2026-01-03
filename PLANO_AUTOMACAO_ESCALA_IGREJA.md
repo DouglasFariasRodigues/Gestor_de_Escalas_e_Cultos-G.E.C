@@ -46,7 +46,7 @@
 ## Regras de Negócio
 - Não permitir cadastro de itens de escala com obreiros/locais/Nat Culto inativos.
 - Impedir conflito: um obreiro não pode estar em dois cultos com horários sobrepostos.
-- **Contador de Escala Mensal:** O sistema deve calcular e exibir quantas vezes um obreiro foi escalado dentro de um determinado mês.
+- **Contador de Escala Mensal:** O sistema deve calcular e exibir quantas vezes um obreiro foi escalado dentro de um determinado mês. (Concluído no backend)
 - Copiar escala deve respeitar:
   - Apenas obreiros/locais/Nat Culto existentes e ativos; se um obreiro não existir/estiver inativo, o item fica pendente para revisão.
   - Datas de destino calculadas por “mesma semana e dia da semana” ou “mesmo dia do mês”.

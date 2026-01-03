@@ -5,6 +5,12 @@ from .serializers import (ObreiroSerializer,LocalSerializer,NatCultoSerializer,C
 class ObreirosViewSet(viewsets.ModelViewSet):
     queryset = Obreiro.objects.all().order_by('nome')
     serializer_class = ObreiroSerializer
+    
+    def get_serializer_context(self):
+        context = super(ObreirosViewSet,self).get_serializer_context()
+        context.update({"request":self.request})
+        return context
+
 
 class Local_ViewSet(viewsets.ModelViewSet):
     queryset = Local.objects.all().order_by('nome')

@@ -5,6 +5,20 @@ class ObreiroSerializer(serializers.ModelSerializer):
     class Meta:
         model = Obreiro
         fields = ['id', 'nome', 'ativo', 'cargo']
+    
+    def get_escalas_no_mes(self,obj):
+        request = self.context.get('request')
+        if not request:
+            return None
+        
+        try:
+            mes = int(mes)
+            ano = int(ano)
+            
+        except (ValueError, TypeError):
+            return 0
+        
+        return obj.escalas.filter(culto_data_hora__month = mes, culto_data_hora__year = ano).count()
 
 class LocalSerializer(serializers.ModelSerializer):
     class Meta:
